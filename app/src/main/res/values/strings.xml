@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">"Solstice Contacts Application "</string>
+    <string name="testText">test</string>
+    <string name="contactsTitle">Contacts</string>
+    <string name="favContacts">Favorite Contacts</string>
+    <string name="regContacts">Other Contacts</string>
+</resources>
