@@ -1,8 +1,5 @@
 package com.example.riley.solsticecontactsapplication;
 
-/**
- * Created by riley on 10/23/17.
- */
 
 public class Contact {
 
@@ -12,29 +9,20 @@ public class Contact {
 
     private String companyName;
 
-    private int idNumber;
+    private int id;
 
     private String smallImageURL;
     private String largeImageURL;
 
-    private String email;
+    private String emailAddress;
 
-    private PhoneNumbers phoneNumbers;
+    private PhoneNumbers phone;
 
-    private String birthday;
+    private String birthdate;
 
-    private boolean isfavorite;
+    private boolean isFavorite;
 
     private boolean editable;
-
-    public Contact(){
-        name = null;
-        address = null;
-        email = null;
-        phoneNumbers = null;
-        isfavorite = false;
-        editable = false;
-    }
 
     public String getCompanyName() {
         return companyName;
@@ -44,12 +32,12 @@ public class Contact {
         this.companyName = companyName;
     }
 
-    public int getIdNumber() {
-        return idNumber;
+    public int getId() {
+        return id;
     }
 
     public void setIdNumber(int idNumber) {
-        this.idNumber = idNumber;
+        this.id = id;
     }
 
     public String getSmallImageURL() {
@@ -68,12 +56,12 @@ public class Contact {
         this.largeImageURL = largeImageURL;
     }
 
-    public PhoneNumbers getPhoneNumbers() {
-        return phoneNumbers;
+    public PhoneNumbers getPhone() {
+        return phone;
     }
 
-    public void setPhoneNumbers(PhoneNumbers phoneNumbers) {
-        this.phoneNumbers = phoneNumbers;
+    public void setPhone(PhoneNumbers phone) {
+        this.phone = phone;
     }
 
     public String getName() {
@@ -92,44 +80,44 @@ public class Contact {
         this.address = address;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEmailAddress() {
+        return emailAddress;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
     }
 
     public String getWork() {
-        return phoneNumbers.getWork();
+        return phone.getWork();
     }
 
     public String getHome(){
-        return phoneNumbers.getHome();
+        return phone.getHome();
     }
 
     public String getMobile(){
-        return phoneNumbers.getMobile();
+        return phone.getMobile();
     }
 
     public void setPhoneNumber(PhoneNumbers phoneNumbers) {
-        this.phoneNumbers = phoneNumbers;
+        this.phone = phoneNumbers;
     }
 
-    public String getBirthday() {
-        return birthday;
+    public String getBirthdate() {
+        return birthdate;
     }
 
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
     }
 
-    public boolean isIsfavorite() {
-        return isfavorite;
+    public boolean isFavorite() {
+        return isFavorite;
     }
 
-    public void setIsfavorite(boolean isfavorite) {
-        this.isfavorite = isfavorite;
+    public void setIsFavorite(boolean isFavorite) {
+        this.isFavorite = isFavorite;
     }
 
     public boolean isEditable() {

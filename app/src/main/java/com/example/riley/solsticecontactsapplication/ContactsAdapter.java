@@ -13,10 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.InputStream;
-import java.util.LinkedList;
 import java.util.List;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
 
 /**
  * Created by riley on 10/24/17.
@@ -37,20 +34,36 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if (contacts.get(position)!= null) {
-            View rowView = inflater.inflate(R.layout.contact_row, parent,false);
+        View rowView = null;
+        if (contacts.get(position) != null) {
+            String star = new String(Character.toChars(0x2B50));
+            rowView = inflater.inflate(R.layout.contact_row, parent, false);
             TextView textView = (TextView) rowView.findViewById(R.id.contactName);
             ImageView imageView = (ImageView) rowView.findViewById(R.id.contactIcon);
-            textView.setText(contacts.get(position).getName());
-            new DownloadImageTask(imageView).execute(contacts.get(position).getSmallImageURL());
-            return rowView;
+            if (contacts.get(position).isFavorite()) {
+                textView.setText(star + contacts.get(position).getName());
+                new DownloadImageTask(imageView).execute(contacts.get(position).getSmallImageURL());
+                return rowView;
+            }
+            else{
+                textView.setText(contacts.get(position).getName());
+                new DownloadImageTask(imageView).execute(contacts.get(position).getSmallImageURL());
+                return rowView;
+            }
         }
         else{
-            View rowView = inflater.inflate(R.layout.contact_header,parent,false);
-            TextView textView = (TextView) rowView.findViewById(R.id.regContacts);
-            textView.setText("Other Contacts");
-            return rowView;
+            if(position==0){
+                rowView = inflater.inflate(R.layout.contact_header, parent, false);
+                TextView textHeader = (TextView) rowView.findViewById(R.id.regContacts);
+                textHeader.setText("Favorite Contacts");
+            }
+            else {
+                rowView = inflater.inflate(R.layout.contact_header, parent, false);
+                TextView textHeader = (TextView) rowView.findViewById(R.id.regContacts);
+                textHeader.setText("Other Contacts");
+            }
         }
+        return rowView;
     }
 
 

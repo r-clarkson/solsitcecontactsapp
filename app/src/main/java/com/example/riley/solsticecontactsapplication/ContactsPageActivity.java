@@ -80,7 +80,6 @@ public class ContactsPageActivity extends ListActivity {
         protected void onPostExecute(List<Contact> c2) {
             if(c2 != null){
                c2 = sortList(c2);
-                System.out.println(c2.size());
                ContactsAdapter adapter = new ContactsAdapter(getApplicationContext(),c2);
                setListAdapter(adapter);
             } else {
@@ -90,16 +89,15 @@ public class ContactsPageActivity extends ListActivity {
 
         public List<Contact> sortList(List<Contact> fullList) {
             LinkedList<Contact> list = new LinkedList<Contact>();
+            list.add(null);
             for (Contact contact : fullList) {
-               if (contact.isIsfavorite()){
+                if (contact.isFavorite()){
                    list.add(contact);
                }
             }
-
             list.add(null);
-
             for (Contact contact : fullList){
-                if (!contact.isIsfavorite()){
+                if (!contact.isFavorite()){
                     list.add(contact);
                 }
             }
