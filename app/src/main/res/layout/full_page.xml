@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/backbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:gravity="left"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:textSize="20dp"
+        android:textAlignment="center"
+        android:background="@android:color/transparent"
+        android:text="Back" />
+
+    <Button
+        android:id="@+id/favoritebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:textSize="40sp"
+        android:background="@android:color/transparent"
+        android:textAlignment="center"
+        android:text="" />
+
+    <ImageView
+        android:id="@+id/largeIcon"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/contactNameFullPage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/largeIcon"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:text="TextView" />
+    <TextView
+        android:id="@+id/companyNameFullPage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/contactNameFullPage"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:text="TextView" />
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/companyNameFullPage">
+    </ListView>
+
+
+</RelativeLayout>

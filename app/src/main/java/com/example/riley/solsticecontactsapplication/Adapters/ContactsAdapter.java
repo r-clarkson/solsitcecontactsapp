@@ -1,4 +1,4 @@
-package com.example.riley.solsticecontactsapplication;
+package com.example.riley.solsticecontactsapplication.Adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.riley.solsticecontactsapplication.Model.Contact;
+import com.example.riley.solsticecontactsapplication.R;
 
 import java.io.InputStream;
 import java.util.List;
@@ -39,15 +42,16 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
             String star = new String(Character.toChars(0x2B50));
             rowView = inflater.inflate(R.layout.contact_row, parent, false);
             TextView textView = (TextView) rowView.findViewById(R.id.contactName);
+            TextView company = (TextView) rowView.findViewById(R.id.companyName);
             ImageView imageView = (ImageView) rowView.findViewById(R.id.contactIcon);
+            new DownloadImageTask(imageView).execute(contacts.get(position).getSmallImageURL());
+            company.setText(contacts.get(position).getCompanyName());
             if (contacts.get(position).isFavorite()) {
                 textView.setText(star + contacts.get(position).getName());
-                new DownloadImageTask(imageView).execute(contacts.get(position).getSmallImageURL());
                 return rowView;
             }
             else{
                 textView.setText(contacts.get(position).getName());
-                new DownloadImageTask(imageView).execute(contacts.get(position).getSmallImageURL());
                 return rowView;
             }
         }

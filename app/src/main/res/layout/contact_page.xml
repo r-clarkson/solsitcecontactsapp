@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:text="Contacts"
         android:gravity="center"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp">
     </TextView>
