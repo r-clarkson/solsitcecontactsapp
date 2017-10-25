@@ -1,38 +1,34 @@
 package com.example.riley.solsticecontactsapplication.Model;
 
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Contact class is parecelable and
+ * contains Address and PhoneNumbers objects.
+ * Two constructors: one default, one for parcelables
+ * Functions for returning needed info in String[] are for displaying info in adapter
+ */
 public class Contact implements Parcelable {
 
     private String name;
-
     private Address address;
-
     private String companyName;
-
     private int id;
-
     private String smallImageURL;
     private String largeImageURL;
-
     private String emailAddress;
-
     private PhoneNumbers phone;
-
     private String birthdate;
-
     private boolean isFavorite;
 
+    /** default constructor used for parsing JSON */
     public Contact(){
-
     }
-
+    /** parcelable constructor */
     public Contact(Parcel in) {
         address = in.readParcelable(Address.class.getClassLoader());
         phone = in.readParcelable(PhoneNumbers.class.getClassLoader());
@@ -82,6 +78,7 @@ public class Contact implements Parcelable {
         return phone;
     }
 
+    /** returns String[] for full contact page row information */
     public List<String[]> getPhoneArray(){
         List<String[]> numbers = new ArrayList<String[]>();
         if (phone.getMobile()!=null){
@@ -122,6 +119,7 @@ public class Contact implements Parcelable {
         return emailAddress;
     }
 
+    /** returns String[] for full contact page row information */
     public String[] getEmailArray(){
         String[] emailArray = {"Email:",emailAddress};
         return emailArray;
@@ -135,18 +133,21 @@ public class Contact implements Parcelable {
         return phone.getWork();
     }
 
+    /** returns String[] for full contact page row information */
     public String[] getWorkArray() { return phone.getWorkArray();}
 
     public String getHome(){
         return phone.getHome();
     }
 
+    /** returns String[] for full contact page row information */
     public String[] getHomeArray() { return phone.getHomeArray();}
 
     public String getMobile(){
         return phone.getMobile();
     }
 
+    /** returns String[] for full contact page row information */
     public String[] getMobileArray() { return phone.getMobileArray();}
 
     public void setPhoneNumber(PhoneNumbers phoneNumbers) {
@@ -157,6 +158,7 @@ public class Contact implements Parcelable {
         return birthdate;
     }
 
+    /** returns String[] for full contact page row information */
     public String[] getBirthdateArray() {
         String[] birthdateArray = {"Birthdate:",birthdate};
         return birthdateArray;
@@ -174,6 +176,7 @@ public class Contact implements Parcelable {
         this.isFavorite = isFavorite;
     }
 
+    /** parcelable overrides & creator*/
     @Override
     public int describeContents() {
         return 0;
@@ -203,79 +206,6 @@ public class Contact implements Parcelable {
         }
     };
 
-
-    public static class Address implements Parcelable{
-        String street;
-        String country;
-        String state;
-        String zipCode;
-        String city;
-        public Address(){
-
-        }
-
-        public Address(Parcel in){
-            street = in.readString();
-            city = in.readString();
-            state = in.readString();
-            country = in.readString();
-            zipCode = in.readString();
-        }
-
-        public void setStreet(String street) {
-            this.street = street;
-        }
-
-        public void setCountry(String country) {
-            this.country = country;
-        }
-
-        public void setState(String state) {
-            this.state = state;
-        }
-
-        public void setZipCode(String zipCode) {
-            this.zipCode = zipCode;
-        }
-
-        public void setCity(String city) {
-            this.city = city;
-        }
-
-        public String toString(){
-            return street +" "+  city +" "+ state +" "+ country +" "+ zipCode;
-        }
-
-        public String[] getAddressArray(){
-            String[] addressArray = {"Address:",toString()};
-            return addressArray;
-        }
-
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeString(street);
-            dest.writeString(city);
-            dest.writeString(state);
-            dest.writeString(country);
-            dest.writeString(zipCode);
-        }
-
-        public static final Parcelable.Creator<Address> CREATOR = new Parcelable.Creator<Address>() {
-            public Address createFromParcel(Parcel in) {
-                return new Address(in);
-            }
-
-            public Address[] newArray(int size) {
-                return new Address[size];
-            }
-        };
-
-    }
 
     public static class PhoneNumbers implements Parcelable{
         String home;

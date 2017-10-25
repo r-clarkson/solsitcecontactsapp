@@ -14,7 +14,9 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="12dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"></ImageView>
+        android:layout_marginBottom="10dp"
+        android:src="@mipmap/icon_small">
+    </ImageView>
 
     <TextView
         android:id="@+id/contactName"

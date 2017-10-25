@@ -1,44 +1,47 @@
-package com.example.riley.solsticecontactsapplication;
+package com.example.riley.solsticecontactsapplication.Activities;
 
-import android.app.Activity;
 import android.app.ListActivity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.riley.solsticecontactsapplication.Adapters.ContactPageAdapter;
+import com.example.riley.solsticecontactsapplication.Adapters.ContactAdapter;
 import com.example.riley.solsticecontactsapplication.Model.Contact;
+import com.example.riley.solsticecontactsapplication.R;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.riley.solsticecontactsapplication.R.id.contactName;
-
 /**
- * Created by riley on 10/24/17.
- */
-
+* Activity for handling single contact view
+**/
 public class ContactPageActivity extends ListActivity {
-    Contact contact;
+    private Contact contact;
+    private ArrayList<Contact> contacts;
 
+    /**
+     * First, initialize contact as the saved parcelable from other activity
+     * Sets the content view to full_page (see layout folder in res)
+     * Sets up favorite and back buttons, as well as img & name/company
+     * Rest of info that is not guaranteed for each contact to have is put into adapter (see below)
+     * Sets adapter
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        contacts = getIntent().getParcelableArrayListExtra("contacts");
         contact = (Contact) getIntent().getParcelableExtra("contact");
-
         setContentView(R.layout.full_page);
+
         Button backbutton = (Button) findViewById(R.id.backbutton);
         backbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,9 +50,9 @@ public class ContactPageActivity extends ListActivity {
             }
         });
 
+        /** a little extra for favorite button so icon & contact object changes on click */
         final Button favbutton = (Button) findViewById(R.id.favoritebutton);
-        final boolean isfav = contact.isFavorite() ? true : false;
-        if (isfav){
+        if (contact.isFavorite()){
             favbutton.setText(new String(Character.toChars(0x2764)));
         }
         else{
@@ -58,7 +61,7 @@ public class ContactPageActivity extends ListActivity {
         favbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isfav){
+                if (contact.isFavorite()){
                     contact.setIsFavorite(false);
                     favbutton.setText(new String(Character.toChars(0x1F494)));
                 }
@@ -68,6 +71,7 @@ public class ContactPageActivity extends ListActivity {
                 }
             }
         });
+
         TextView contactName = (TextView) findViewById(R.id.contactNameFullPage);
         contactName.setText(contact.getName());
         TextView contactCompany = (TextView) findViewById(R.id.companyNameFullPage);
@@ -75,6 +79,10 @@ public class ContactPageActivity extends ListActivity {
         ImageView largeIcon = (ImageView) findViewById(R.id.largeIcon);
         new DownloadImageTask(largeIcon).execute(contact.getLargeImageURL());
 
+        /**
+         * adapter which takes in String[] (there are only 3 elements needed, so I chose a little array)
+         * adds info from the getters in the model classes
+         * */
         List<String[]> information = new ArrayList<String[]>();
         for (String[] s : contact.getPhoneArray()){
             information.add(s);
@@ -82,16 +90,23 @@ public class ContactPageActivity extends ListActivity {
         information.add(contact.getEmailArray());
         information.add(contact.getAddressArray());
         information.add(contact.getBirthdateArray());
-        ContactPageAdapter itemsAdapter = new ContactPageAdapter(getApplicationContext(),information);
+
+        ContactAdapter itemsAdapter = new ContactAdapter(getApplicationContext(),information);
         setListAdapter(itemsAdapter);
     }
 
     public void returnToContacts(){
         Intent intent = new Intent(this, ContactsPageActivity.class);
         intent.putExtra("contact",contact);
+        intent.putParcelableArrayListExtra("contacts",contacts);
         ContactPageActivity.this.startActivity(intent);
     }
 
+    /**
+     * Credit to https://stackoverflow.com/questions/5776851/load-image-from-url
+     * Downloads image from url and sets given imageview as such
+     * I would've liked to download images to the res folder but didn't have time to look into it
+     */
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
 
@@ -116,5 +131,4 @@ public class ContactPageActivity extends ListActivity {
             bmImage.setImageBitmap(result);
         }
     }
-
 }
