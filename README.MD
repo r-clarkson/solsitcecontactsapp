@@ -2,7 +2,7 @@
 NOTES
 =====
 
-Please keep in mind this is my first android app.
+Please keep in mind this is my first android app... if I got this internship I'd love to expand on any potential this app shows. I want to learn.
 I would love feedback regardless of whether I continue in the interview process.
 
 Written for API 25... see gradle build. Things are a bit messier than I would have liked  but I cleaned and commented as much as I could.
